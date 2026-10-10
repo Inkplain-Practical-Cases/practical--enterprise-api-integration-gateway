@@ -1,17 +1,17 @@
 {
   "crd_version": 1,
-  "name": "Enterprise API Integration Gateway STEP-4",
+  "name": "Enterprise API Integration Gateway STEP-5",
   "description": "Deterministic source-linked HTTP CRM integration training case",
   "source": {
     "repo": "https://github.com/Inkplain-Practical-Cases/practical--enterprise-api-integration-gateway",
-    "revision": "step-04-map-crm-responses-and-failures"
+    "revision": "step-05-verify-integration-contracts"
   },
   "step": {
-    "no": 4,
+    "no": 5,
     "of": 5,
-    "title": "Map CRM responses and failures",
-    "branch": "step-04-map-crm-responses-and-failures",
-    "previous": "STEP-3.crd",
+    "title": "Verify integration contracts",
+    "branch": "step-05-verify-integration-contracts",
+    "previous": "STEP-4.crd",
     "removed": []
   },
   "flows": [

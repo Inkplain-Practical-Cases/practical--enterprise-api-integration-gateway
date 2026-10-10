@@ -1,4 +1,4 @@
-# STEP-4 — Map CRM responses and failures
+# STEP-5 — Verify integration contracts
 
 Install: `python -m pip install -r requirements.txt`; test: `python -m pytest -q`.
 

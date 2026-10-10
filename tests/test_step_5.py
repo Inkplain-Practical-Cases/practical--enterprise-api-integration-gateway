@@ -1,4 +1,4 @@
-"""Accurate offline gateway contract tests for STEP-4."""
+"""Accurate offline gateway contract tests for STEP-5."""
 from fastapi.testclient import TestClient
 from app.main import app
 client = TestClient(app)
