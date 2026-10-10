@@ -1,16 +1,10 @@
 {
   "crd_version": 1,
-  "name": "enterprise-api-integration-gateway STEP-5",
-  "description": "Verify integration contracts",
+  "name": "Enterprise API Integration Gateway STEP-5",
+  "description": "Deterministic source-linked HTTP CRM integration training case",
   "source": {
     "repo": "https://github.com/Inkplain-Practical-Cases/practical--enterprise-api-integration-gateway",
-    "revision": "step-05-verify-integration-contracts",
-    "roots": {
-      "backend": "app"
-    },
-    "stacks": [
-      "python-fastapi"
-    ]
+    "revision": "step-05-verify-integration-contracts"
   },
   "step": {
     "no": 5,
@@ -23,107 +17,82 @@
   "flows": [
     {
       "id": "request",
-      "name": "Synthetic request",
-      "entry": "be.process"
+      "name": "Process CRM intake",
+      "entry": "door.process"
     }
   ],
   "components": [
     {
-      "id": "be.process",
+      "id": "model.Request",
+      "name": "Request",
+      "layer": "schema",
+      "source": {
+        "file": "app/main.py",
+        "symbol": "Request"
+      },
+      "step_change": "unchanged",
+      "operations": []
+    },
+    {
+      "id": "door.process",
       "name": "process",
-      "kind": "function",
-      "side": "backend",
       "layer": "door",
-      "step_change": "changed",
       "source": {
         "file": "app/main.py",
         "symbol": "process"
       },
+      "step_change": "unchanged",
       "operations": [
         {
-          "id": "op-2",
-          "title": "Invoke step 2",
+          "id": "op1",
+          "title": "Submit validated input",
           "calls": {
-            "to": "be.step_2",
-            "type": "call"
-          }
-        },
-        {
-          "id": "op-3",
-          "title": "Invoke step 3",
-          "calls": {
-            "to": "be.step_3",
-            "type": "call"
-          }
-        },
-        {
-          "id": "op-4",
-          "title": "Invoke step 4",
-          "calls": {
-            "to": "be.step_4",
-            "type": "call"
-          }
-        },
-        {
-          "id": "op-5",
-          "title": "Invoke step 5",
-          "calls": {
-            "to": "be.step_5",
+            "to": "service.send_to_crm",
             "type": "call"
           }
         }
       ]
     },
     {
-      "id": "be.step_2",
-      "name": "transform_2",
-      "kind": "function",
-      "side": "backend",
+      "id": "service.send_to_crm",
+      "name": "send_to_crm",
       "layer": "service",
-      "step_change": "unchanged",
       "source": {
-        "file": "app/features/step_2.py",
-        "symbol": "transform"
+        "file": "app/features/crm_client.py",
+        "symbol": "send_to_crm"
       },
+      "step_change": "changed",
+      "operations": [
+        {
+          "id": "op2",
+          "title": "Perform HTTP POST via local mock",
+          "calls": {
+            "to": "provider.mock_crm_handler",
+            "type": "call"
+          }
+        }
+      ]
+    },
+    {
+      "id": "provider.mock_crm_handler",
+      "name": "mock_crm_handler",
+      "layer": "provider",
+      "source": {
+        "file": "app/features/crm_client.py",
+        "symbol": "mock_crm_handler"
+      },
+      "step_change": "changed",
       "operations": []
     },
     {
-      "id": "be.step_3",
-      "name": "transform_3",
-      "kind": "function",
-      "side": "backend",
-      "layer": "service",
+      "id": "model.CrmError",
+      "name": "CrmError",
+      "layer": "model",
+      "source": {
+        "file": "app/features/crm_client.py",
+        "symbol": "CrmError"
+      },
       "step_change": "unchanged",
-      "source": {
-        "file": "app/features/step_3.py",
-        "symbol": "transform"
-      },
-      "operations": []
-    },
-    {
-      "id": "be.step_4",
-      "name": "transform_4",
-      "kind": "function",
-      "side": "backend",
-      "layer": "service",
-      "step_change": "unchanged",
-      "source": {
-        "file": "app/features/step_4.py",
-        "symbol": "transform"
-      },
-      "operations": []
-    },
-    {
-      "id": "be.step_5",
-      "name": "transform_5",
-      "kind": "function",
-      "side": "backend",
-      "layer": "service",
-      "step_change": "added",
-      "source": {
-        "file": "app/features/step_5.py",
-        "symbol": "transform"
-      },
       "operations": []
     }
   ]
