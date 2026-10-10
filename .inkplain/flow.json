@@ -1,0 +1,88 @@
+{
+  "practical_case": {
+    "id": "aOmcmivKQxlHV5NSZfln",
+    "slug": "enterprise-api-integration-gateway",
+    "name": "Enterprise API Integration Gateway"
+  },
+  "current": "done",
+  "stages": {
+    "intro": {
+      "status": "done",
+      "summary": "FDE Starter case with five matched Starter profile skills (30% targets), seven substantive introduction sections and a five-step testable implementation plan saved and verified.",
+      "outputs": {
+        "profile": "forward-deployed-engineering",
+        "level": "starter",
+        "skills_linked": 5,
+        "intro_sections": 7,
+        "planned_steps": 5,
+        "portal_url": "/practical-case/enterprise-api-integration-gateway"
+      },
+      "started_at": "2026-10-10T14:32:01.464Z",
+      "finished_at": "2026-10-10T14:32:01.464Z",
+      "updated_by": "api-key:for-chatgpt-test-2"
+    },
+    "repo": {
+      "status": "done",
+      "summary": "Repaired cumulative STEP-1 through STEP-5 to main commit ancestry via Inkplain MCP, preserving five old heads as timestamped backup branches; re-run repair dry-run confirms zero ancestry problems. All six actual branch heads passed GitHub Actions pytest, and five-tab INKP has zero missing linked documents.",
+      "outputs": {
+        "repo_url": "https://github.com/Inkplain-Practical-Cases/practical--enterprise-api-integration-gateway",
+        "planned_steps": 5,
+        "branch_refs_created": 5,
+        "steps_implemented": 1,
+        "steps_verified": 5,
+        "history_cumulative": true,
+        "ci_verified": true,
+        "steps_with_committed_source": 5,
+        "main_final": true,
+        "source_quality": "offline HTTPX MockTransport with bearer config, error normalization, strict contract tests",
+        "steps": 5,
+        "branch_checks_success": 6,
+        "branch_checks_total": 6,
+        "blocked_reason": "GitHub ref-write permission unavailable (403 integration FORBIDDEN); four sequential branch pairs diverged",
+        "requires": "Expose ref backup/force-with-lease rewrite through Inkplain MCP or grant connected GitHub integration Git reference write capability",
+        "ancestry_verified": true,
+        "backup_refs": 5,
+        "main_commit": "289a9c42d2a4e4a5c998f7fa780d77ed37896550",
+        "repair_tool": "repair_practical_case_repo_history",
+        "last_ci_run": "https://github.com/Inkplain-Practical-Cases/practical--enterprise-api-integration-gateway/actions/runs/38069116683"
+      },
+      "started_at": "2026-10-10T14:35:45.638Z",
+      "finished_at": "2026-10-10T16:48:39.100Z",
+      "updated_by": "api-key:for-chatgpt-test-2"
+    },
+    "inkp": {
+      "status": "done",
+      "summary": "Rebuilt INKP after final HTTP CRM adapter source/CRD changes. Verified five STEP-1..STEP-5 ordered Simulator diagrams and 22 linked Process Executor documents, zero missing linked documents.",
+      "outputs": {
+        "inkp_path": "enterprise-api-integration-gateway.inkp",
+        "inkp_url": "https://github.com/Inkplain-Practical-Cases/practical--enterprise-api-integration-gateway/blob/main/enterprise-api-integration-gateway.inkp",
+        "tabs": 5,
+        "missing_links": 0,
+        "linked_executor_docs": 22
+      },
+      "started_at": "2026-10-10T15:05:11.303Z",
+      "finished_at": "2026-10-10T15:05:11.303Z",
+      "updated_by": "api-key:for-chatgpt-test-2"
+    },
+    "content": {
+      "status": "done",
+      "summary": "MCP-verified Stage 4: seven active categories and 41 public lessons (Overview 18 with 16 source-backed What-is, five STEP categories x4, Conclusion 3). Rewrote each STEP lesson with actual source-linked architecture, component-specific 4M, code walkthrough and runnable test instructions. The mock httpx transport is explicit; no live CRM network claims.",
+      "outputs": {
+        "portal_url": "/practical-case/enterprise-api-integration-gateway",
+        "categories": 7,
+        "items": 41,
+        "overview": 18,
+        "step_lessons": 20,
+        "conclusion": 3,
+        "theory_items": 16,
+        "structural_qa": true,
+        "content_quality_qa": true,
+        "source_links_repaired": true
+      },
+      "started_at": "2026-10-10T16:07:42.756Z",
+      "finished_at": "2026-10-10T16:07:42.756Z",
+      "updated_by": "api-key:for-chatgpt-test-2"
+    }
+  },
+  "updated_at": "2026-10-10T16:48:39.100Z"
+}
