@@ -1,11 +1,20 @@
-"""FastAPI door for synthetic CRM integration."""
-from fastapi import FastAPI
+"""Starter FDE: validated inbound API to deterministic synthetic CRM."""
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
-from app.features.step_2 import transform
-app = FastAPI(title="Enterprise API Gateway")
+from app.features.crm_client import send_to_crm, CrmError
+
+app = FastAPI(title="Enterprise API Integration Gateway")
 class Request(BaseModel):
     message: str = Field(min_length=1, max_length=2000)
-@app.post("/process")
-def process(request: Request) -> dict[str,str]:
-    """Validate a request and call the offline CRM adapter."""
-    return {"status":"accepted","result":transform(request.message)}
+class Result(BaseModel):
+    status: str
+    crm_id: str
+
+@app.post("/process", response_model=Result)
+def process(request: Request) -> Result:
+    """Never forward unvalidated input or expose server-side credentials."""
+    try:
+        response = send_to_crm(request.message)
+    except CrmError as exc:
+        raise HTTPException(status_code=exc.status_code, detail=exc.public_message) from exc
+    return Result(status="accepted", crm_id=response["crm_id"])

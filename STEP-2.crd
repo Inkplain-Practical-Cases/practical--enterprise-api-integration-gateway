@@ -1,6 +1,11 @@
 {
   "crd_version": 1,
-  "name": "Enterprise API Gateway step 2",
+  "name": "Enterprise API Integration Gateway STEP-2",
+  "description": "Deterministic source-linked HTTP CRM integration training case",
+  "source": {
+    "repo": "https://github.com/Inkplain-Practical-Cases/practical--enterprise-api-integration-gateway",
+    "revision": "step-02-call-mock-crm-provider"
+  },
   "step": {
     "no": 2,
     "of": 5,
@@ -9,50 +14,85 @@
     "previous": "STEP-1.crd",
     "removed": []
   },
-  "source": {
-    "repo": "https://github.com/Inkplain-Practical-Cases/practical--enterprise-api-integration-gateway",
-    "revision": "step-02-call-mock-crm-provider"
-  },
   "flows": [
     {
       "id": "request",
-      "entry": "be.process"
+      "name": "Process CRM intake",
+      "entry": "door.process"
     }
   ],
   "components": [
     {
-      "id": "be.process",
+      "id": "model.Request",
+      "name": "Request",
+      "layer": "schema",
+      "source": {
+        "file": "app/main.py",
+        "symbol": "Request"
+      },
+      "step_change": "unchanged",
+      "operations": []
+    },
+    {
+      "id": "door.process",
       "name": "process",
-      "kind": "function",
       "layer": "door",
-      "side": "backend",
-      "step_change": "changed",
       "source": {
         "file": "app/main.py",
         "symbol": "process"
       },
+      "step_change": "changed",
       "operations": [
         {
           "id": "op1",
-          "title": "Invoke CRM adapter",
+          "title": "Submit validated input",
           "calls": {
-            "to": "be.crm_adapter",
+            "to": "service.send_to_crm",
             "type": "call"
           }
         }
       ]
     },
     {
-      "id": "be.crm_adapter",
-      "name": "transform",
-      "kind": "function",
-      "layer": "provider",
-      "side": "backend",
-      "step_change": "added",
+      "id": "service.send_to_crm",
+      "name": "send_to_crm",
+      "layer": "service",
       "source": {
-        "file": "app/features/step_2.py",
-        "symbol": "transform"
+        "file": "app/features/crm_client.py",
+        "symbol": "send_to_crm"
       },
+      "step_change": "added",
+      "operations": [
+        {
+          "id": "op2",
+          "title": "Perform HTTP POST via local mock",
+          "calls": {
+            "to": "provider.mock_crm_handler",
+            "type": "call"
+          }
+        }
+      ]
+    },
+    {
+      "id": "provider.mock_crm_handler",
+      "name": "mock_crm_handler",
+      "layer": "provider",
+      "source": {
+        "file": "app/features/crm_client.py",
+        "symbol": "mock_crm_handler"
+      },
+      "step_change": "added",
+      "operations": []
+    },
+    {
+      "id": "model.CrmError",
+      "name": "CrmError",
+      "layer": "model",
+      "source": {
+        "file": "app/features/crm_client.py",
+        "symbol": "CrmError"
+      },
+      "step_change": "added",
       "operations": []
     }
   ]
