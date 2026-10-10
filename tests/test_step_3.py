@@ -1,4 +1,4 @@
-"""Accurate offline gateway contract tests for STEP-2."""
+"""Accurate offline gateway contract tests for STEP-3."""
 from fastapi.testclient import TestClient
 from app.main import app
 client = TestClient(app)
@@ -14,3 +14,7 @@ def test_required_message():
 
 def test_invalid_length():
     assert client.post("/process", json={"message": "x" * 2001}).status_code == 422
+
+def test_configuration_required(monkeypatch):
+    monkeypatch.setenv("CRM_API_TOKEN", "")
+    assert client.post("/process", json={"message": "sample"}).status_code == 503

@@ -11,7 +11,8 @@ def mock_crm_handler(request: httpx.Request) -> httpx.Response:
     """No network traffic. This fake intentionally models limited CRM behaviors."""
     if request.method != "POST" or str(request.url) != "https://crm.example.test/api/orders":
         return httpx.Response(404, json={"error": "unknown_route"})
-    # Auth behavior is introduced in STEP-3.
+    if request.headers.get("authorization") != "Bearer offline-demo":
+        return httpx.Response(401, json={"error": "unauthorized"})
     payload = json.loads(request.content.decode("utf-8"))
     message = payload["message"]
     # Timeout and normalized failure handling are introduced in STEP-4.
@@ -20,7 +21,10 @@ def mock_crm_handler(request: httpx.Request) -> httpx.Response:
 def send_to_crm(message: str) -> dict[str, str]:
     """An injected local mock transport exercises the actual HTTP request path."""
     headers = {}
-    # Credentials are introduced in STEP-3.
+    token = os.getenv("CRM_API_TOKEN", "offline-demo")
+    if not token:
+        raise CrmError(503, "CRM integration is not configured")
+    headers["Authorization"] = "Bearer " + token
     try:
         with httpx.Client(transport=httpx.MockTransport(mock_crm_handler), timeout=2.0) as client:
             result = client.post("https://crm.example.test/api/orders",

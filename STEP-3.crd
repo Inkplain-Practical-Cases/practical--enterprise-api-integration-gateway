@@ -1,17 +1,17 @@
 {
   "crd_version": 1,
-  "name": "Enterprise API Integration Gateway STEP-2",
+  "name": "Enterprise API Integration Gateway STEP-3",
   "description": "Deterministic source-linked HTTP CRM integration training case",
   "source": {
     "repo": "https://github.com/Inkplain-Practical-Cases/practical--enterprise-api-integration-gateway",
-    "revision": "step-02-call-mock-crm-provider"
+    "revision": "step-03-inject-authentication-configuration"
   },
   "step": {
-    "no": 2,
+    "no": 3,
     "of": 5,
-    "title": "Call mock CRM provider",
-    "branch": "step-02-call-mock-crm-provider",
-    "previous": "STEP-1.crd",
+    "title": "Inject authentication configuration",
+    "branch": "step-03-inject-authentication-configuration",
+    "previous": "STEP-2.crd",
     "removed": []
   },
   "flows": [
@@ -41,7 +41,7 @@
         "file": "app/main.py",
         "symbol": "process"
       },
-      "step_change": "changed",
+      "step_change": "unchanged",
       "operations": [
         {
           "id": "op1",
@@ -61,7 +61,7 @@
         "file": "app/features/crm_client.py",
         "symbol": "send_to_crm"
       },
-      "step_change": "added",
+      "step_change": "changed",
       "operations": [
         {
           "id": "op2",
@@ -81,7 +81,7 @@
         "file": "app/features/crm_client.py",
         "symbol": "mock_crm_handler"
       },
-      "step_change": "added",
+      "step_change": "changed",
       "operations": []
     },
     {
@@ -92,7 +92,7 @@
         "file": "app/features/crm_client.py",
         "symbol": "CrmError"
       },
-      "step_change": "added",
+      "step_change": "unchanged",
       "operations": []
     }
   ]

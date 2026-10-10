@@ -1,4 +1,4 @@
-# STEP-2 — Call mock CRM provider
+# STEP-3 — Inject authentication configuration
 
 Install: `python -m pip install -r requirements.txt`; test: `python -m pytest -q`.
 
