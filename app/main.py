@@ -1,23 +1,20 @@
-"""enterprise api integration gateway: FastAPI learning entry point.
-ICS layer: door / composition root.
-Why it exists: binds a typed request handler to an HTTP endpoint.
-Without it: requests cannot reach the example service.
-Step: added in step 1 (Accept validated API request).
-"""
-from fastapi import FastAPI
+"""Starter FDE: validated inbound API to deterministic synthetic CRM."""
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel, Field
+from app.features.crm_client import send_to_crm, CrmError
 
-app = FastAPI(title="enterprise api integration gateway")
-
+app = FastAPI(title="Enterprise API Integration Gateway")
 class Request(BaseModel):
-    """A synthetic message that can be validated without a provider."""
     message: str = Field(min_length=1, max_length=2000)
+class Result(BaseModel):
+    status: str
+    crm_id: str
 
-def handle_request(message: str) -> dict[str, str]:
-    """Return an explicit local acknowledgement, not a fabricated AI result."""
-    return {"status": "accepted", "message": message}
-
-@app.post("/process")
-def process(request: Request) -> dict[str, str]:
-    """Enforce the request schema before passing to the handler."""
-    return handle_request(request.message)
+@app.post("/process", response_model=Result)
+def process(request: Request) -> Result:
+    """Never forward unvalidated input or expose server-side credentials."""
+    try:
+        response = send_to_crm(request.message)
+    except CrmError as exc:
+        raise HTTPException(status_code=exc.status_code, detail=exc.public_message) from exc
+    return Result(status="accepted", crm_id=response["crm_id"])
