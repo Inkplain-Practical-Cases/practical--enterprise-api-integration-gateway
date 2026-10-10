@@ -1,3 +1,5 @@
 # STEP-3 — Inject authentication configuration
 
-Use `pip install -r requirements.txt && pytest -q`. Read the source from app/main.py into app/features/step_3.py. Offline teaching demonstration only; this is not certified production logic.
+Install: `python -m pip install -r requirements.txt`; test: `python -m pytest -q`.
+
+Use only synthetic inputs. The `httpx.MockTransport` adapter performs a real HTTP client call in-memory, never calls an outside CRM. Inbound Pydantic validation precedes outbound requests. All responses and errors are explicitly mapped; review the CRD and Python source.
