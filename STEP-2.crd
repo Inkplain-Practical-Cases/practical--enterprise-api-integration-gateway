@@ -1,0 +1,59 @@
+{
+  "crd_version": 1,
+  "name": "Enterprise API Gateway step 2",
+  "step": {
+    "no": 2,
+    "of": 5,
+    "title": "Call mock CRM provider",
+    "branch": "step-02-call-mock-crm-provider",
+    "previous": "STEP-1.crd",
+    "removed": []
+  },
+  "source": {
+    "repo": "https://github.com/Inkplain-Practical-Cases/practical--enterprise-api-integration-gateway",
+    "revision": "step-02-call-mock-crm-provider"
+  },
+  "flows": [
+    {
+      "id": "request",
+      "entry": "be.process"
+    }
+  ],
+  "components": [
+    {
+      "id": "be.process",
+      "name": "process",
+      "kind": "function",
+      "layer": "door",
+      "side": "backend",
+      "step_change": "changed",
+      "source": {
+        "file": "app/main.py",
+        "symbol": "process"
+      },
+      "operations": [
+        {
+          "id": "op1",
+          "title": "Invoke CRM adapter",
+          "calls": {
+            "to": "be.crm_adapter",
+            "type": "call"
+          }
+        }
+      ]
+    },
+    {
+      "id": "be.crm_adapter",
+      "name": "transform",
+      "kind": "function",
+      "layer": "provider",
+      "side": "backend",
+      "step_change": "added",
+      "source": {
+        "file": "app/features/step_2.py",
+        "symbol": "transform"
+      },
+      "operations": []
+    }
+  ]
+}
