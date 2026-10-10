@@ -1,4 +1,4 @@
-"""Accurate offline gateway contract tests for STEP-3."""
+"""Accurate offline gateway contract tests for STEP-4."""
 from fastapi.testclient import TestClient
 from app.main import app
 client = TestClient(app)
@@ -18,3 +18,9 @@ def test_invalid_length():
 def test_configuration_required(monkeypatch):
     monkeypatch.setenv("CRM_API_TOKEN", "")
     assert client.post("/process", json={"message": "sample"}).status_code == 503
+
+def test_upstream_failure():
+    assert client.post("/process", json={"message": "unavailable"}).status_code == 503
+
+def test_timeout():
+    assert client.post("/process", json={"message": "timeout"}).status_code == 504

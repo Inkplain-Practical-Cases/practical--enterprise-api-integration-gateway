@@ -15,7 +15,12 @@ def mock_crm_handler(request: httpx.Request) -> httpx.Response:
         return httpx.Response(401, json={"error": "unauthorized"})
     payload = json.loads(request.content.decode("utf-8"))
     message = payload["message"]
-    # Timeout and normalized failure handling are introduced in STEP-4.
+    if message == "timeout":
+        raise httpx.ReadTimeout("synthetic upstream timeout", request=request)
+    if message == "unavailable":
+        return httpx.Response(503, json={"error": "upstream_unavailable"})
+    if message == "invalid-response":
+        return httpx.Response(200, text="not-json")
     return httpx.Response(201, json={"id": "crm-"+str(len(message))+"-"+message[:8].replace(" ","-"), "status": "created"})
 
 def send_to_crm(message: str) -> dict[str, str]:

@@ -1,4 +1,4 @@
-# STEP-3 — Inject authentication configuration
+# STEP-4 — Map CRM responses and failures
 
 Install: `python -m pip install -r requirements.txt`; test: `python -m pytest -q`.
 

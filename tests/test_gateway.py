@@ -24,4 +24,12 @@ def test_missing_token_fails_closed(monkeypatch):
     assert result.status_code == 503
     assert "offline-demo" not in result.text
 
+def test_upstream_timeout():
+    assert client.post("/process", json={"message": "timeout"}).status_code == 504
+
+def test_upstream_unavailable():
+    assert client.post("/process", json={"message": "unavailable"}).status_code == 503
+
+def test_invalid_upstream_response():
+    assert client.post("/process", json={"message": "invalid-response"}).status_code == 502
 
