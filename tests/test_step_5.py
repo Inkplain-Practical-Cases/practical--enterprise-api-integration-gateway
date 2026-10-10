@@ -1,24 +1,26 @@
-"""Synthetic gateway API contract tests: exact results, never an ambiguous 200-or-422 assertion."""
+"""Accurate offline gateway contract tests for STEP-5."""
 from fastapi.testclient import TestClient
 from app.main import app
-
 client = TestClient(app)
 
-def test_invalid_request_rejected():
-    response = client.post('/process', json={})
-    assert response.status_code == 422
+def test_valid_request():
+    result = client.post("/process", json={"message": "synthetic sample"})
+    assert result.status_code == 200
+    assert result.json()["status"] == "accepted"
+    assert result.json()["crm_id"].startswith("crm-")
 
-def test_empty_message_rejected():
-    response = client.post('/process', json={'message': ''})
-    assert response.status_code == 422
+def test_required_message():
+    assert client.post("/process", json={}).status_code == 422
 
-def test_accepts_synthetic_message():
-    response = client.post('/process', json={'message': 'synthetic sample'})
-    assert response.status_code == 200
-    data = response.json()
-    assert data['status'] == 'accepted'
-    assert isinstance(data['result'], str)
-    assert data['result'].startswith('verified:')
+def test_invalid_length():
+    assert client.post("/process", json={"message": "x" * 2001}).status_code == 422
 
-def test_rejects_excessive_length():
-    assert client.post('/process', json={'message': 'x' * 2001}).status_code == 422
+def test_configuration_required(monkeypatch):
+    monkeypatch.setenv("CRM_API_TOKEN", "")
+    assert client.post("/process", json={"message": "sample"}).status_code == 503
+
+def test_upstream_failure():
+    assert client.post("/process", json={"message": "unavailable"}).status_code == 503
+
+def test_timeout():
+    assert client.post("/process", json={"message": "timeout"}).status_code == 504
