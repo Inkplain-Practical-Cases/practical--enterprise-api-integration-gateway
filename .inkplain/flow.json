@@ -66,7 +66,7 @@
     },
     "content": {
       "status": "done",
-      "summary": "MCP-verified Stage 4: seven active categories and 41 public lessons (Overview 18 with 16 source-backed What-is, five STEP categories x4, Conclusion 3). Rewrote each STEP lesson with actual source-linked architecture, component-specific 4M, code walkthrough and runnable test instructions. The mock httpx transport is explicit; no live CRM network claims.",
+      "summary": "Source audit of FastAPI CRM gateway and client: httpx MockTransport returns synthetic responses without recording them in a database. No durable entities; no .erd, ERD tab or database lesson is warranted.",
       "outputs": {
         "portal_url": "/practical-case/enterprise-api-integration-gateway",
         "categories": 7,
@@ -77,12 +77,17 @@
         "theory_items": 16,
         "structural_qa": true,
         "content_quality_qa": true,
-        "source_links_repaired": true
+        "source_links_repaired": true,
+        "erd_audit_complete": true,
+        "erd_applicable_steps": [],
+        "erd_item_title": "Database (Entity) Relations",
+        "erd_lessons_created": 0,
+        "erd_not_applicable": true
       },
       "started_at": "2026-10-10T16:07:42.756Z",
       "finished_at": "2026-10-10T16:07:42.756Z",
       "updated_by": "api-key:for-chatgpt-test-2"
     }
   },
-  "updated_at": "2026-10-10T16:48:39.100Z"
+  "updated_at": "2026-10-13T13:40:42.292Z"
 }
