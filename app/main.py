@@ -18,3 +18,7 @@ def process(request: Request) -> Result:
     except CrmError as exc:
         raise HTTPException(status_code=exc.status_code, detail=exc.public_message) from exc
     return Result(status="accepted", crm_id=response["crm_id"])
+
+# Persist request/outcome metadata independently from synthetic CRM calls.
+from app.core.request_audit_middleware import RequestAuditMiddleware
+app.add_middleware(RequestAuditMiddleware)

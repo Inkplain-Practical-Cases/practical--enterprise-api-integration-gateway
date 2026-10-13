@@ -1,0 +1,71 @@
+{
+  "erd_version": 1,
+  "name": "enterprise-api-integration-gateway",
+  "step": "final",
+  "engine": "sqlite",
+  "generated_from": [
+    "app/providers/provider_record_request_audit.py",
+    "app/core/request_audit_middleware.py",
+    "app/main.py"
+  ],
+  "entities": [
+    {
+      "name": "integration_api_requests",
+      "kind": "table",
+      "step_change": "unchanged",
+      "source": "app/providers/provider_record_request_audit.py",
+      "description": "Integration gateway HTTP request metadata, with no raw inbound payload.",
+      "fields": [
+        {
+          "name": "id",
+          "type": "TEXT",
+          "key": "PK"
+        },
+        {
+          "name": "route",
+          "type": "TEXT"
+        },
+        {
+          "name": "method",
+          "type": "TEXT"
+        },
+        {
+          "name": "created_at",
+          "type": "TEXT"
+        }
+      ]
+    },
+    {
+      "name": "integration_api_events",
+      "kind": "table",
+      "step_change": "unchanged",
+      "source": "app/providers/provider_record_request_audit.py",
+      "description": "HTTP outcome audit events referring to integration API request IDs.",
+      "fields": [
+        {
+          "name": "id",
+          "type": "INTEGER",
+          "key": "PK"
+        },
+        {
+          "name": "request_id",
+          "type": "TEXT",
+          "references": "integration_api_requests.id"
+        },
+        {
+          "name": "http_status",
+          "type": "INTEGER"
+        },
+        {
+          "name": "duration_ms",
+          "type": "REAL"
+        },
+        {
+          "name": "occurred_at",
+          "type": "TEXT"
+        }
+      ]
+    }
+  ],
+  "relations": []
+}
