@@ -66,7 +66,7 @@
     },
     "content": {
       "status": "done",
-      "summary": "Source audit of FastAPI CRM gateway and client: httpx MockTransport returns synthetic responses without recording them in a database. No durable entities; no .erd, ERD tab or database lesson is warranted.",
+      "summary": "Added SQLite integration HTTP request and outcome audit at STEP-5; source-backed ERD files, Simulator tab and database lesson verified.",
       "outputs": {
         "portal_url": "/practical-case/enterprise-api-integration-gateway",
         "categories": 7,
@@ -79,15 +79,17 @@
         "content_quality_qa": true,
         "source_links_repaired": true,
         "erd_audit_complete": true,
-        "erd_applicable_steps": [],
+        "erd_applicable_steps": [
+          5
+        ],
         "erd_item_title": "Database (Entity) Relations",
-        "erd_lessons_created": 0,
-        "erd_not_applicable": true
+        "erd_lessons_created": 1,
+        "erd_not_applicable": false
       },
       "started_at": "2026-10-10T16:07:42.756Z",
       "finished_at": "2026-10-10T16:07:42.756Z",
       "updated_by": "api-key:for-chatgpt-test-2"
     }
   },
-  "updated_at": "2026-10-13T13:40:42.292Z"
+  "updated_at": "2026-10-13T16:12:49.976Z"
 }
